@@ -13,7 +13,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.logging.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,25 +82,21 @@ public class MainActivity extends AppCompatActivity {
 
             Context that = this;
             AndroidNetworking.get("https://api-free.deepl.com/v2/languages")
-                    .addHeaders("Authorization", "DeepL-Auth-Key" + deeplKey)
+                    .addHeaders("Authorization", "DeepL-Auth-Key " + deeplKey)
                     .build()
-                    .getAsJSONObject(new JSONObjectRequestListener() {
+                    .getAsJSONArray(new JSONArrayRequestListener() {
                         @Override
-                        public void onResponse(JSONObject response) {
+                        public void onResponse(JSONArray response) {
                             try {
-                                // Récupération du tableau de langue
-                                JSONArray languages = response.getJSONArray("languages");
-                                System.out.print("listes: " + languages);
                                 // Liste dans laquelle seront stockés les langues
                                 ArrayList<Language> languageList = new ArrayList<>();
-                                for (int iLanguage = 0; iLanguage < languages.length(); ++iLanguage) {
-                                    final JSONObject language = languages.getJSONObject(iLanguage);
+                                for (int iLanguage = 0; iLanguage < response.length(); ++iLanguage) {
+                                    final JSONObject language = response.getJSONObject(iLanguage);
                                     languageList.add(new Language(
                                             language.getString("language"),
                                             language.getString("name")
                                     ));
-                                    System.out.print("liste: ");
-
+                                    System.out.println(language.getString("language"));
                                 }
                                 // Création d’un adaptateur permettant d’afficher les langues dans un Spinner
                                 ArrayAdapter<Language> adapter = new ArrayAdapter<>(
@@ -110,8 +108,12 @@ public class MainActivity extends AppCompatActivity {
                                 Spinner spinnerFinale = findViewById(R.id.langueFinale);
                                 // Mise en place de l’adaptateur dans le spinner
                                 spinnerFinale.setAdapter(adapter);
+                                Toast toast = Toast.makeText(MainActivity.this, "Work", Toast.LENGTH_SHORT);
+                                toast.show();
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Toast toast = Toast.makeText(MainActivity.this, "Erreur31312321412", Toast.LENGTH_SHORT);
+                                toast.show();
                             }
                         }
                         @Override

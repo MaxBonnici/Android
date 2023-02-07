@@ -4,156 +4,140 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#555B68"
+    android:background="#00555B68"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="CKoiLaTrad?"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Spinner
-        android:id="@+id/langueSource"
-        android:layout_width="175dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/langueFinale"
-        android:layout_width="175dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <ImageButton
+                android:id="@+id/history"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@null"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
-    <EditText
-        android:id="@+id/textSource"
-        android:layout_width="280dp"
-        android:layout_height="90dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="5dp"
-        android:background="@null"
-        android:ems="10"
-        android:hint="Texte à traduire"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textColorHighlight="#00FFFFFF"
-        android:textColorLink="#00FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+            <ImageButton
+                android:id="@+id/option"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@null"
+                android:clickable="true"
+                app:srcCompat="@android:drawable/ic_menu_manage" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintEnd_toStartOf="@+id/langueFinale"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/langueSource"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:srcCompat="@drawable/baseline_keyboard_double_arrow_right_24" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="355dp"
+            android:layout_height="248dp"
+            android:layout_marginBottom="540dp"
+            app:srcCompat="@drawable/logo" />
 
-    <Button
-        android:id="@+id/traduction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Traduire"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textSource" />
+        <EditText
+            android:id="@+id/textSource"
+            android:layout_width="280dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="5dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="Texte à traduire"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textColorHighlight="#00FFFFFF"
+            android:textColorLink="#00FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textFinal"
-        android:layout_width="280dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="50dp"
-        android:text="Texte traduit"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/traduction" />
+        <Spinner
+            android:id="@+id/langueFinale"
+            android:layout_width="175dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="44dp"
+            android:backgroundTint="#040000"
+            android:contextClickable="false"
+            android:dropDownWidth="match_parent"
+            android:gravity="center_horizontal|center_vertical"
+            android:pointerIcon="context_menu"
+            android:popupTheme="@style/TextAppearance.AppCompat"
+            android:prompt="@string/app_name"
+            android:textAlignment="center" />
 
-    <ImageButton
-        android:id="@+id/history"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@null"
-        android:clickable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_recent_history" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Réglage"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:text="Historique"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/history" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tu veux quelle langue bg ?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:text="Réglage"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:text="CKoiLaTradStp?"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/option"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="@null"
-        android:clickable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_manage" />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="355dp"
-        android:layout_height="248dp"
-        android:layout_marginBottom="540dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo" />
+        <Button
+            android:id="@+id/traduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Traduire" />
+
+        <TextView
+            android:id="@+id/textFinal"
+            android:layout_width="280dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="50dp"
+            android:hint="Texte traduit"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Historique"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

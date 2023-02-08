@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,17 +17,24 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton myHistory;
     ImageButton myOption;
+    ArrayList<Traduction> tradList = new ArrayList<>();
+    SharedPreferences historyfile;
+    SharedPreferences keyFile;
+    String deeplAuthKey;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AndroidNetworking.initialize(this);
         loadLanguages();
+        historyfile = getSharedPreferences("historyfile", MODE_PRIVATE);
+        keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
+        deeplAuthKey = keyFile.getString("deeplKey", null);
+
 
 
         myHistory = (ImageButton) findViewById(R.id.history);
@@ -55,27 +67,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public class Language {
-        private String language;
-        private String name;
 
-        public Language(String language, String name) {
-            this.language = language;
-            this.name = name;
-        }
 
-        public String getLanguage() {
-            return language;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String toString() {
-            return name;
-        }
-    }
     public void loadLanguages() {
             String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
             Context that = this;
@@ -93,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                                     languageList.add(new Language(
                                             language.getString("language"),
                                             language.getString("name")
-
                                     ));
                                 }
                                 // Création d’un adaptateur permettant d’afficher les langues dans un Spinner
@@ -120,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
     public void translate(View view) {
+
             String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
 
             Context that = this;
@@ -140,17 +133,35 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 //Récuperation du tableau des langues
                                 JSONArray translations = response.getJSONArray("translations");
+
                                 //Récuperation de la traduction
                                 final JSONObject translation = translations.getJSONObject(0);
+
                                 //Récuperation du tableau du texte traduit
                                 String translatedText = translation.getString("text");
-                                //Récuperation langue source
+
+                                //Récuperation de la langue source
                                 String detectedSource = translation.getString("detected_source_language");
                                 Toast toast = Toast.makeText(MainActivity.this, "Langue détectée: " + detectedSource, Toast.LENGTH_LONG);
                                 toast.show();
-                                
+
+
                                 TextView textView = findViewById(R.id.textFinal);
                                 textView.setText(translatedText);
+
+                                Traduction trad = new Traduction(translatedText,textToTranslate,detectedSource,selectedLanguage.getLanguage());
+                                tradList.add(trad);
+
+
+                                SharedPreferences.Editor editor = historyfile.edit();
+                                Gson gson = new Gson();
+                                String jsonText = gson.toJson(tradList);
+                                editor.putString("Historique", jsonText);
+                                editor.apply();
+
+
+
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

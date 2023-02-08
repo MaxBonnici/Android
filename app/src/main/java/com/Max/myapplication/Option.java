@@ -3,6 +3,7 @@ package com.Max.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -19,11 +20,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Option extends AppCompatActivity {
+    SharedPreferences keyFile;
+    String deeplAuthKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
         usage();
+        keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
+
     }
 
     public void usage() {
@@ -53,5 +59,14 @@ public class Option extends AppCompatActivity {
                         toast.show();
                     }
                 });
+    }
+    public void keySetter(View view){
+        EditText deeplKey = findViewById(R.id.authKey);
+        deeplAuthKey = deeplKey.getText().toString();
+
+        SharedPreferences.Editor editor = keyFile.edit();
+        editor.putString("deeplKey", deeplAuthKey);
+        editor.apply();
+
     }
 }

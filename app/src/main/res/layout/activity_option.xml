@@ -83,6 +83,7 @@
         android:layout_width="199dp"
         android:layout_height="54dp"
         android:layout_marginBottom="200dp"
+        android:onClick="keySetter"
         android:text="Actualiser"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

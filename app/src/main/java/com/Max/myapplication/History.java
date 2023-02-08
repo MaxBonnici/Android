@@ -26,7 +26,7 @@ public class History extends AppCompatActivity {
 
 
         Gson gson = new Gson();
-        String jsonText = historyfile.getString("Historique", null);
+        String jsonText = historyfile.getString("Historique", new ArrayList<Traduction>().toString());
         Type type = new TypeToken<ArrayList<Traduction>>(){}.getType();
         tradList = gson.fromJson(jsonText,type);
         System.out.println(tradList.get(0).getTranslatedText());

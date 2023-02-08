@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
         AndroidNetworking.initialize(this);
         loadLanguages();
         historyfile = getSharedPreferences("historyfile", MODE_PRIVATE);
-        keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
-        deeplAuthKey = keyFile.getString("deeplKey", null);
+
 
 
 
@@ -70,50 +69,54 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void loadLanguages() {
-            String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
-            Context that = this;
-            AndroidNetworking.get("https://api-free.deepl.com/v2/languages")
-                    .addHeaders("Authorization", "DeepL-Auth-Key " + deeplKey)
-                    .build()
-                    .getAsJSONArray(new JSONArrayRequestListener() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try {
-                                // Liste dans laquelle seront stockés les langues
-                                ArrayList<Language> languageList = new ArrayList<>();
-                                for (int iLanguage = 0; iLanguage < response.length(); ++iLanguage) {
-                                    final JSONObject language = response.getJSONObject(iLanguage);
-                                    languageList.add(new Language(
-                                            language.getString("language"),
-                                            language.getString("name")
-                                    ));
-                                }
-                                // Création d’un adaptateur permettant d’afficher les langues dans un Spinner
-                                ArrayAdapter<Language> adapter = new ArrayAdapter<>(
-                                        that,
-                                        android.R.layout.simple_spinner_dropdown_item,
-                                        languageList
-                                );
+        //String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
+        keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
+        deeplAuthKey = keyFile.getString("deeplKey", " ");
 
-                                // Réupération du spinner
-                                Spinner spinnerFinale = findViewById(R.id.spin_language);
+        Context that = this;
+        AndroidNetworking.get("https://api-free.deepl.com/v2/languages")
+                .addHeaders("Authorization", "DeepL-Auth-Key " + deeplAuthKey)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            // Liste dans laquelle seront stockés les langues
+                            ArrayList<Language> languageList = new ArrayList<>();
+                            for (int iLanguage = 0; iLanguage < response.length(); ++iLanguage) {
+                                final JSONObject language = response.getJSONObject(iLanguage);
+                                languageList.add(new Language(
+                                        language.getString("language"),
+                                        language.getString("name")
+                                ));
+                            }
+                            // Création d’un adaptateur permettant d’afficher les langues dans un Spinner
+                            ArrayAdapter<Language> adapter = new ArrayAdapter<>(
+                                    that,
+                                    android.R.layout.simple_spinner_dropdown_item,
+                                    languageList
+                            );
 
-                                // Mise en place de l’adaptateur dans le spinner
-                                spinnerFinale.setAdapter(adapter);
-                                } catch (JSONException e) {
-                                e.printStackTrace();
-                                }
+                            // Réupération du spinner
+                            Spinner spinnerFinale = findViewById(R.id.spin_language);
+
+                            // Mise en place de l’adaptateur dans le spinner
+                            spinnerFinale.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        @Override
-                        public void onError(ANError anError) {
-                            Toast toast = Toast.makeText(MainActivity.this, "Erreur", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }
-                    });
-        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast toast = Toast.makeText(MainActivity.this, "Erreur", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                });
+    }
     public void translate(View view) {
 
-            String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
+            //String deeplKey = "2966ae25-76f9-e86d-94a3-8feac167f6f7:fx";
 
             Context that = this;
             final Spinner language = findViewById(R.id.spin_language);
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             String textToTranslate = text.getText().toString();
 
             AndroidNetworking.post("https://api-free.deepl.com/v2/translate")
-                    .addHeaders("Authorization", "DeepL-Auth-Key " + deeplKey)
+                    .addHeaders("Authorization", "DeepL-Auth-Key " + deeplAuthKey)
                     .addBodyParameter( "text", textToTranslate)
                     .addBodyParameter( "target_lang", selectedLanguage.getLanguage())
                     .build()

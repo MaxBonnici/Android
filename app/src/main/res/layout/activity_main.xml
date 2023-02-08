@@ -4,16 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="#86C9E4"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/historique"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="50dp"
+        android:text="Historique"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reglage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
-        android:text="Historique"
+        android:text="Réglage"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -24,24 +37,27 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
         android:text="CKoiLaTrad?"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
-        tools:layout_editor_absoluteX="109dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="227dp"
         android:layout_height="120dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo__2_" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -53,7 +69,7 @@
             android:id="@+id/history"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="22dp"
             android:layout_marginTop="15dp"
             android:background="@null"
             android:clickable="true"
@@ -63,26 +79,13 @@
             android:id="@+id/option"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="300dp"
+            android:layout_marginLeft="295dp"
             android:layout_marginTop="15dp"
             android:background="@null"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_manage" />
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/reglage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
-        android:text="Réglage"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -95,12 +98,19 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent">
 
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="?android:attr/listDivider" />
+
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="Tu veux quelle langue bg ?"
+            android:paddingBottom="5dp"
+            android:text="Choisis la langue bg"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <FrameLayout
@@ -109,9 +119,9 @@
             android:background="#F2017AA3">
 
             <Spinner
-                android:id="@+id/langueFinale"
-                android:layout_width="175dp"
-                android:layout_height="20dp"
+                android:id="@+id/spin_language"
+                android:layout_width="300dp"
+                android:layout_height="30dp"
                 android:backgroundTint="#040000"
                 android:contextClickable="false"
                 android:dropDownWidth="match_parent"
@@ -122,6 +132,13 @@
                 android:textAlignment="center" />
         </FrameLayout>
 
+        <View
+            android:id="@+id/divider4"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="25dp"
+            android:background="?android:attr/listDivider" />
+
         <EditText
             android:id="@+id/textSource"
             android:layout_width="280dp"
@@ -131,7 +148,7 @@
             android:layout_marginEnd="5dp"
             android:background="@null"
             android:ems="10"
-            android:hint="Exemple: A monkey"
+            android:hint="Texte à traduire"
             android:inputType="textPersonName"
             android:textAlignment="center"
             android:textColor="#000000"
@@ -145,6 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:onClick="translate"
             android:text="Traduire" />
 
         <TextView
@@ -152,8 +170,8 @@
             android:layout_width="280dp"
             android:layout_height="90dp"
             android:layout_marginTop="50dp"
-            android:hint="Un noir"
             android:textAlignment="center"
+            android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
 

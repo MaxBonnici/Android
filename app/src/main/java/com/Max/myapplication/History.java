@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -30,6 +32,11 @@ public class History extends AppCompatActivity {
         Type type = new TypeToken<ArrayList<Traduction>>(){}.getType();
         tradList = gson.fromJson(jsonText,type);
         System.out.println(tradList.get(0).getTranslatedText());
+
+        ListView tradListView = (ListView) findViewById(R.id.history);
+        HistoryAdapter adapter = new HistoryAdapter(this, R.layout.item_history, tradList);
+        tradListView.setAdapter(adapter);
+
     }
 
 }

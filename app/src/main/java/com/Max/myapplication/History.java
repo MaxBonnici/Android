@@ -26,17 +26,12 @@ public class History extends AppCompatActivity {
         setContentView(R.layout.activity_history);
         historyfile = getSharedPreferences("historyfile", MODE_PRIVATE);
 
-
+        //On récupère la liste des traduction
         Gson gson = new Gson();
         String jsonText = historyfile.getString("Historique", new ArrayList<Traduction>().toString());
         Type type = new TypeToken<ArrayList<Traduction>>(){}.getType();
         tradList = gson.fromJson(jsonText,type);
         System.out.println(tradList.get(0).getTranslatedText());
-
-        ListView tradListView = (ListView) findViewById(R.id.history);
-        HistoryAdapter adapter = new HistoryAdapter(this, R.layout.item_history, tradList);
-        tradListView.setAdapter(adapter);
-
     }
 
 }

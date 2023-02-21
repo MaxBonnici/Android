@@ -32,9 +32,9 @@ public class Option extends AppCompatActivity {
         keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
         SharedPreferences.Editor editor = keyFile.edit();
 
+        //Récuperation de la clé
         keyFile = getSharedPreferences("keyFile", MODE_PRIVATE);
         deeplAuthKey = keyFile.getString("deeplKey", " ");
-
         EditText deeplKey = findViewById(R.id.authKey);
         deeplKey.setHint(deeplAuthKey);
         }
@@ -52,7 +52,7 @@ public class Option extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            //Récuperation du nombre de character
+                            //Récuperation du nombre de charactère
                             String currentValue = String.valueOf(response.getInt("character_count"));
                             String limitValue = String.valueOf(response.getInt("character_limit"));
 
